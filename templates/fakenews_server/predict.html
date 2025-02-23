@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Prediction</title>
+</head>
+<body>
+    <h1>Fake News Prediction</h1>
+    <form method="POST" action="{% url 'predict_news' %}">
+        {% csrf_token %}
+        <label for="model_name">Select Model:</label>
+        <select name="model_name" id="model_name">
+            <option value="linear_regression">Linear Regression</option>
+            <option value="naive_bayes">Naive Bayes</option>
+            <option value="mlp">MLP</option>
+            <option value="random_forest">Random Forest</option>
+        </select>
+        <br><br>
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required>
+        <br><br>
+        <label for="text">Text:</label>
+        <textarea name="text" id="text" required></textarea>
+        <br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction is not None %}
+        <h2>Prediction Result:</h2>
+        <p><strong>Title:</strong> {{ title }}</p>
+        <p><strong>Text:</strong> {{ text }}</p>
+        <p><strong>Is Fake:</strong> {{ prediction }}</p>
+    {% endif %}
+</body>
+</html>
